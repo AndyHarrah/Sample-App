@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe PagesController do
+  render_views
+
+# Check that pages exist
 
   describe "GET 'home'" do
     it "should be successful" do
@@ -14,6 +17,30 @@ describe PagesController do
       get 'contact'
       response.should be_success
     end
+  end
+
+  describe "GET 'about'" do
+    it "should be successful" do
+      get 'about'
+      response.should be_success
+    end
+  end
+
+# Check titles
+
+  it "should have the right title" do
+    get 'home'
+    response.should have_selector("title", :content=> "Sample App | Home")
+  end
+
+  it "should have the right title" do
+    get 'contact'
+    response.should have_selector("title", :content=> "Sample App | Contact")
+  end
+  
+  it "should have the right title" do
+    get 'about'
+    response.should have_selector("title", :content=> "Sample App | About")
   end
 
 end
