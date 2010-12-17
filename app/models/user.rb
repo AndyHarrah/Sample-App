@@ -32,8 +32,15 @@ class User < ActiveRecord::Base
 
 	before_save	:encrypt_password
 
+	def self.authenticate(email, password)
+		u = find_by_email(email)
+		return nil if u.nil?
+		return u if u.has_password?(password)
+		return nil
+  end
+
 	def has_password?(input)
-		encrypt(input) == encrypted_password
+		encrypted_password == encrypt(input)
   end
 
   private

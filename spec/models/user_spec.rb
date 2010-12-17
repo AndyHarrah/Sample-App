@@ -138,6 +138,20 @@ describe User do
 
     end
 
+		describe "test authenticate method" do
+
+			it "should return nil on email/password mismatch" do
+				wrong_user = User.authenticate(@attr[:email], "wrongpass")
+			  wrong_user.should be_nil
+      end
+
+			it "should return the user on email/password match" do
+				user = User.authenticate(@attr[:email], @attr[:password])
+				user.should == @user
+      end
+
+    end
+
   end
 
 end
